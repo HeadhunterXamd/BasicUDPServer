@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Network\NetworkMessage.cs" />
     <Compile Include="Network\Printer.cs" />
     <Compile Include="Network\Server.cs" />
     <Compile Include="Program.cs" />
