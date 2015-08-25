@@ -42,6 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="game\Player.cs" />
+    <Compile Include="game\Vector.cs" />
     <Compile Include="Network\NetworkMessage.cs" />
     <Compile Include="Network\Printer.cs" />
     <Compile Include="Network\Server.cs" />

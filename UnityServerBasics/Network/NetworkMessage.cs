@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UnityServerBasics.Network
 {
@@ -16,5 +12,13 @@ namespace UnityServerBasics.Network
 		/// </summary>
 		private DateTime Time { get; set; }
 
+		/// <summary>
+		/// A Network message struct, for fast collection of the data.
+		/// </summary>
+		/// <param name="_lMessage"></param>
+		public NetworkMessage(byte[] _lMessage)
+		{
+
+		}
 	}
 }
