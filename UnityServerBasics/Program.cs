@@ -27,7 +27,7 @@ namespace UnityServerBasics
 
 				}
 				{
-					//Console.WriteLine(_server.status());
+					/*Console.WriteLine(_server.status());*/
 				}
 
 
