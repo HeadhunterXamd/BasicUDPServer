@@ -12,7 +12,7 @@ namespace UnityServerBasics.Network
 		public Printer()
 		{
 			
-			Server.StaticSubscribeToMessageReceived(printEvent);
+			Server.Instance.SubscribeToMessageReceived(printEvent);
 		}
 
 		private void printEvent(byte[] _lmessage)
