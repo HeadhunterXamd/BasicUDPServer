@@ -27,6 +27,7 @@ namespace UnityServerBasics
 
 				}
 				{
+					// this should be an input for the recognition.
 					//Console.WriteLine(_server.status());
 				}
 
