@@ -19,5 +19,13 @@ namespace UnityServerBasics.game
 			Address = _address;
 		}
 
+		/// <summary>
+		/// Change the position of the player.
+		/// </summary>
+		/// <param name="_cNewPosition">The new position of the player.</param>
+		public void SetPosition(Vector _cNewPosition)
+		{
+			Position = _cNewPosition;
+		}
 	}
 }

@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="game\Player.cs" />
     <Compile Include="game\Vector.cs" />
+    <Compile Include="Network\Exceptions\NetworkException.cs" />
     <Compile Include="Network\NetworkMessage.cs" />
     <Compile Include="Network\Printer.cs" />
     <Compile Include="Network\Server.cs" />
@@ -53,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="README.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
