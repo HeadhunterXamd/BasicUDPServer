@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,7 +27,7 @@ namespace UnityServerBasics
 
 				}
 				{
-					/*Console.WriteLine(_server.status());*/
+					Console.WriteLine(_server.Status());
 				}
 
 

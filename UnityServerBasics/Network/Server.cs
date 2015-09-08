@@ -115,19 +115,19 @@ namespace UnityServerBasics.Network
 		/// A static version of the event subscription method
 		/// </summary>
 		/// <param name="_method"> the method to run when this event fires </param>
-		public static void StaticSubscribeToMessageReceived(OnMessageReceived _method)
-		{
-			m_cThis.MessageReceived += _method;
-		}
+		//public static void StaticSubscribeToMessageReceived(OnMessageReceived _method)
+		//{
+		//	m_cThis.MessageReceived += _method;
+		//}
 
 		/// <summary>
 		/// A static version of the unsubscribe method
 		/// </summary>
 		/// <param name="_method"> the method you want to unsubscribe from this event </param>
-		public static void StaticUnsubscribeToMessageReceived(OnMessageReceived _method)
-		{
-			m_cThis.MessageReceived -= _method;
-		}
+		//public static void StaticUnsubscribeToMessageReceived(OnMessageReceived _method)
+		//{
+		//	m_cThis.MessageReceived -= _method;
+		//}
 
 		/// <summary>
 		/// This method allows you to get subscribed to the MessageReceived event
