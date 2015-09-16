@@ -3,6 +3,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using UnityServerBasics.Utilities;
 
 namespace UnityServerBasics.Network
 {
@@ -17,7 +18,7 @@ namespace UnityServerBasics.Network
 		private readonly int _port;
 		private UdpClient _listener;
 		private IPEndPoint _endPoint;
-
+		public EventQueue<NetworkMessage> MessageBacklog { get; private set; }
 
 		/// <summary>
 		/// a delegate function is like a blueprint, so the function which uses the delegate knows what the parameters are to use.
@@ -49,6 +50,7 @@ namespace UnityServerBasics.Network
 			_port = port;
 			// make it run on a separate thread so it is not blocking the application from running.
 			m_cThis = this;
+			MessageReceived += ParseMessage;
 		}
 
 		/// <summary>
@@ -111,23 +113,11 @@ namespace UnityServerBasics.Network
 
 		#region EventManagment
 
-		/// <summary>
-		/// A static version of the event subscription method
-		/// </summary>
-		/// <param name="_method"> the method to run when this event fires </param>
-		//public static void StaticSubscribeToMessageReceived(OnMessageReceived _method)
-		//{
-		//	m_cThis.MessageReceived += _method;
-		//}
-
-		/// <summary>
-		/// A static version of the unsubscribe method
-		/// </summary>
-		/// <param name="_method"> the method you want to unsubscribe from this event </param>
-		//public static void StaticUnsubscribeToMessageReceived(OnMessageReceived _method)
-		//{
-		//	m_cThis.MessageReceived -= _method;
-		//}
+		private void ParseMessage(byte[] _lMessage)
+		{
+			NetworkMessage message = NetworkMessage.Deserialize(_lMessage);
+			MessageBacklog.Enqueue(message);
+		}
 
 		/// <summary>
 		/// This method allows you to get subscribed to the MessageReceived event

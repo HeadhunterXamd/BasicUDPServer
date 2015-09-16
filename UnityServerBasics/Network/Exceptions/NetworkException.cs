@@ -25,4 +25,9 @@ namespace UnityServerBasics.Network.Exceptions
 		{
 		}
 	}
+
+	class SerializeNetworkException : NetworkException
+	{
+
+	}
 }
