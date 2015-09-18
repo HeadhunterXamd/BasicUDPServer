@@ -4,14 +4,14 @@ env:
   global:
    # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
    #   via the "travis encrypt" command using the project repo's public key
-   - secure: "R23slK+ZhIluCUyDvrwP/+pdvq3W0OYesGuELjmUnoAJDVBFehs07BWdnE+hZSIP0nMZZD6oiKcIoyMn7khIordUtmfyM/0f2At+SghLwbw5E2m+vpa/haoom+jaO0QaapbHQcFuvckvwVz6t0puaHDPkBWDqVkUHFruIyjCcTD+2F0VzCqdyHUfVa7s9oGEbv+eRBV18dnMBy9KTGYpaXkJvNQ7yJE8ysY/FEUnWfhViE4rTuZM2UClCIZjDViOOremiemJxPsCl1KIaHBYiXn/zjZaSrVzmL81nPtzgdJOC87GoODauKpCYs7TfF+Bg9Pe2ONHfh8TFv05JzRQao3Gsz77nqnSa/VWhtmgalKflWaLT4mnHde2WOxHPvsK5I8jKAuOGUr4DDstP7VpKdy22W5bvlJkj/VmKnh6COBfD6DH5sWPnIunaf6Q2CezHmFkWxnFw91Z2lbLQ7WDbcZcwTn8yls9R3SeHbXp6790b/SezWTqQWijZ7O0hURppdRoBP8nHe659tngDmS8S9KwIOHkt2O0RBQGqmVXgwTF37+4/bkSbiObnGLnLCqteotUHzm21epiJ1X393sLYNnI7hn8XbTPBm/GEU/VVpRC7oSZ67TNtPNC1SL0L6eJpZ8s+E4L7PmiQUxAkWBC69PHqB6+w2dynqGSMOKXsAQ="
+   - secure: "pfrKGISKhVWLUiuqhv/v8OU1yp9FO2NLVcznygQ6mlKl/7oLO9olkCf/oX3rKQXLhToQH69JkBQBOCVgaBdkhXo13L38e1ZD8iZreUCPnU7DlVUQcq0qM7ATzpyH1T8VzDUC0jYMC2bxNSB+btPdkA555/ibP2EwcC7Swe0/jnxBbFtxkjOp4zqHqyrKNlJzM2KF0Ar6UcwM4jPhxfMe5kFVF132Z79if5DQ4j59GRdBVnybgz2l2IoaLnRwkF2nnKAfEMvaZXrvJhMvQVx9IWxXPzNa2QBeZtvseEFh5KhLNeSSxpeXK1rsYfFbXlDOB4yaCYlNv5k3xxg/hdChtHAbVz7TVdPVUMAQ8E6Y7lgiWw83QOU1aa6WOJeowo1hpjA6/rxB4ITlxxsvbpMaYf68DLH7VHU5ECP3ly71O8ljU35BbvaSZv3cVH7Fzqje8aER1TgXQXxff43XrvfXUbQ2mxegQkQDvwqlN9y2BFVq0v8MJnEK8/hp4ajKQweqxdEeNwJDJNvLeXGpXTMZF83/uMqbikLyAdIQx3F/QUSboGzZE3+41lFbytBrSx6vRP6boYVYoXoYBV4jU6pmYZj9rfEKGO5mZcJvA1tZrTHNSLV1uGhG4wnR0VuXaqDg0fNdZ6wyID9HLPDYrGLdZyuUUmGhKudcHceJGvYF+Sw="
 
 addons:
   coverity_scan:
     project:
       name: "HeadhunterXamd/BasicUDPServer"
-      description: "Basic UDP game server"
+      description: "Build submitted via Travis CI"
     notification_email: nielsvanschooten@gmail.com
-    build_command_prepend: " "
-    build_command:   " "
+    build_command_prepend: "msbuild /t:Clean"
+    build_command:   "msbuild /t:Rebuild"
     branch_pattern: coverity_scan
