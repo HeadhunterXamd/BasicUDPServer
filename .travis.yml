@@ -1,5 +1,4 @@
 language: csharp
-solution: UnityServerBasics.sln
 env:
   global:
    # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
@@ -15,3 +14,5 @@ addons:
     build_command_prepend: "msbuild /t:Clean"
     build_command:   "msbuild /t:Rebuild"
     branch_pattern: coverity_scan
+solution: UnityServerBasics.sln
+
