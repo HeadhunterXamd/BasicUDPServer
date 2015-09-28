@@ -90,16 +90,7 @@ namespace UnityServerBasics.Network
 				{
 					byte[] message = _listener.Receive(ref _endPoint);
 					//here you have received your message, you can do with it what you want.
-					//string data = Encoding.ASCII.GetString(message);
-					//data = data.Replace(" ", "");
-					//var dataList = data.Split('|');
-					//if (dataList[1].Contains("INPUT"))
-					//{
-					//	Console.WriteLine("input = " + dataList[dataList.Length-1]);
-					//}
-					// the message is split into a list so you can get separate data parts of the message.
-					// the message is: Identifier|GameName|type|sender|info you want to send
-					// the message is in, so you can do with it whatever you want.
+					// The message is an serialized Networkmessage, which is a wrapper for the content of the message.
 					// I launch the event that gives the messageData to the eventlisteners
 					MessageReceived(message);
 				}

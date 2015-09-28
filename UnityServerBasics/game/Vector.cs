@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Xml.Serialization;
+using UnityServerBasics.Network.Exceptions;
+using UnityServerBasics.Network.Serialization;
 
 namespace UnityServerBasics.game
 {
@@ -10,21 +9,25 @@ namespace UnityServerBasics.game
 	/// <summary>
 	/// A basic Vector object.
 	/// </summary>
-	class Vector
+	[Serializable]
+	class Vector : INetworkSerializer
 	{
 		/// <summary>
 		/// The x value of this vector.
 		/// </summary>
+		[XmlElement("X")]
 		private double X { get; set; }
 
 		/// <summary>
 		/// The y vanlue of this vector.
 		/// </summary>
+		[XmlElement("Y")]
 		private double Y { get; set; }
 
 		/// <summary>
 		/// The z value of this vector.
 		/// </summary>
+		[XmlElement("Z")]
 		private double Z { get; set; }
 
 
@@ -85,5 +88,56 @@ namespace UnityServerBasics.game
 			return new Vector(_left.X * _right.X, _left.Y * _right.Y, _left.Z * _left.Z);
 		}
 
+		/// <summary>
+		/// Get the element from the index.<para />
+		/// 0 - X <para/>
+		/// 1 - Y <para/>
+		/// 2 - Z <para/>
+		/// </summary>
+		/// <param name="index">the index to get</param>
+		/// <returns>the element selected</returns>
+		public double this[int index]
+		{
+			get
+			{
+				if(index == 0)
+				{
+					return X;
+				}
+				else if(index == 1)
+				{
+					return Y;
+				}
+				else if(index == 2)
+				{
+					return Z;
+				}
+				else
+				{
+					throw new IndexOutOfBoundsException("A vector only contains 3 items, with 0 indexing");
+				}
+			}
+			set
+			{
+				if (index == 0)
+				{
+					X = value;
+				}
+				else if (index == 1)
+				{
+					Y = value;
+				}
+				else if (index == 2)
+				{
+					Z = value;
+				}
+				else
+				{
+					throw new IndexOutOfBoundsException("A vector only contains 3 items, with 0 indexing");
+				}
+			}
+		}
+
+		
 	}
 }

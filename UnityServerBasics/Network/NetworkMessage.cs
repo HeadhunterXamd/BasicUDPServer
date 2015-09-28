@@ -4,6 +4,10 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityServerBasics.game;
 
+
+/// <summary>
+/// Thi is a basic network message wrapper so the messaging can be better managed.
+/// </summary>
 namespace UnityServerBasics.Network
 {
 	[Serializable]
@@ -21,14 +25,15 @@ namespace UnityServerBasics.Network
 
 		/// <summary>
 		/// if the message are in sequence this should be higher than 0,
-		/// this can be used for bigger messages.
+		/// this is for the Congestion control.
 		/// </summary>
 		public int Sequence { get; private set; }
 
 		/// <summary>
 		/// the body of the message, can contain data or connection info.
-		/// When sending data of certain objects, like a player:
-		/// use the Guid from the player object to identify the object.
+		/// When sending data of certain objects, like a player.<para/>
+		/// Use the Guid from the player object to identify the object.
+		/// Like this: "GUID of playerObject|messageBody"
 		/// </summary>
 		public string Body { get; private set; }
 
