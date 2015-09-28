@@ -9,3 +9,9 @@ this is a basic UDP server, this can be used as a basic game server
 
 ##### The Issue tracker and scrum board is here:
 [![Stories in Ready](https://badge.waffle.io/HeadhunterXamd/BasicUDPServer.svg?label=ready&title=Ready)](http://waffle.io/HeadhunterXamd/BasicUDPServer)
+
+##### the Code coverage:
+<a href="https://scan.coverity.com/projects/headhunterxamd-basicudpserver">
+  <img alt="Coverity Scan Build Status"
+       src="https://scan.coverity.com/projects/6393/badge.svg"/>
+</a>
