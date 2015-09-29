@@ -18,7 +18,7 @@ namespace UnityServerBasics.Network
 		private void printEvent(byte[] _lmessage)
 		{
 			string message = Encoding.ASCII.GetString(_lmessage);
-			Console.WriteLine(message);
+			//Console.WriteLine(message);
 		}
 	}
 }

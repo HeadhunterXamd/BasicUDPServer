@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading;
 using UnityServerBasics.Utilities;
 
@@ -11,7 +10,7 @@ namespace UnityServerBasics.Network
 	/// <summary>
 	/// this is a basic server class.
 	/// </summary>
-	class Server
+	class Server : IDisposable
 	{
 		private static Server m_cThis;
 		private Thread _serverThread;
@@ -48,8 +47,8 @@ namespace UnityServerBasics.Network
 		public Server(int port)
 		{
 			_port = port;
-			// make it run on a separate thread so it is not blocking the application from running.
 			m_cThis = this;
+			Console.WriteLine("Setting up the server...");
 			MessageReceived += ParseMessage;
 		}
 
@@ -61,6 +60,7 @@ namespace UnityServerBasics.Network
 		{
 			_serverThread = new Thread(Listener);
 			_serverThread.IsBackground = true;
+			Console.WriteLine("Starting the listener...");
 			_serverThread.Start();
 			return true;
 		}
@@ -89,7 +89,7 @@ namespace UnityServerBasics.Network
 				try
 				{
 					byte[] message = _listener.Receive(ref _endPoint);
-					//here you have received your message, you can do with it what you want.
+					// here you have received your message, you can do with it what you want.
 					// The message is an serialized Networkmessage, which is a wrapper for the content of the message.
 					// I launch the event that gives the messageData to the eventlisteners
 					MessageReceived(message);
@@ -104,6 +104,10 @@ namespace UnityServerBasics.Network
 
 		#region EventManagment
 
+		/// <summary>
+		/// The function called after a message came in.
+		/// </summary>
+		/// <param name="_lMessage"></param>
 		private void ParseMessage(byte[] _lMessage)
 		{
 			NetworkMessage message = NetworkMessage.Deserialize(_lMessage);
@@ -126,6 +130,16 @@ namespace UnityServerBasics.Network
 		public void UnsubscribeToMessageReceived(OnMessageReceived _method)
 		{
 			MessageReceived -= _method;
+		}
+
+		/// <summary>
+		/// <see cref="IDisposable.Dispose"/>
+		/// </summary>
+		public void Dispose()
+		{
+			_listener.Close();
+			_endPoint = null;
+			_serverThread.Abort();
 		}
 		#endregion
 	}
