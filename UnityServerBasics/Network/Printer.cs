@@ -7,6 +7,9 @@ using System.Windows.Forms;
 
 namespace UnityServerBasics.Network
 {
+	/// <summary>
+	/// This is for debugging only
+	/// </summary>
 	class Printer
 	{
 		public Printer()
@@ -18,7 +21,7 @@ namespace UnityServerBasics.Network
 		private void printEvent(byte[] _lmessage)
 		{
 			string message = Encoding.ASCII.GetString(_lmessage);
-			//Console.WriteLine(message);
+			Console.WriteLine(message);
 		}
 	}
 }
