@@ -79,6 +79,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="game\Hub.cs" />
     <Compile Include="Network\Exceptions\IndexOutOfBoundsException.cs" />
     <Compile Include="game\Player.cs" />
     <Compile Include="game\Vector.cs" />

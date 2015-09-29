@@ -20,7 +20,7 @@ namespace UnityServerBasics.Network
 		public EventQueue<NetworkMessage> MessageBacklog { get; private set; }
 
 		/// <summary>
-		/// a delegate function is like a blueprint, so the function which uses the delegate knows what the parameters are to use.
+		/// a delegate function is like a blueprint, this shows the parameters the event gives when it fires.
 		/// </summary>
 		/// <param name="_lMessage"></param>
 		public delegate void OnMessageReceived(byte[] _lMessage);
