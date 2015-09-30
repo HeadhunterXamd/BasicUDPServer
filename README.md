@@ -4,7 +4,7 @@ this is a basic UDP server, this can be used as a basic game server
 
 ##### The build tools
 
-[![Build Status](https://travis-ci.org/HeadhunterXamd/BasicUDPServer.svg?branch=master)](https://travis-ci.org/HeadhunterXamd/BasicUDPServer)<br/>   <image src="https://ci.appveyor.com/api/projects/status/np05m6l0f60t8pcp?svg=true"  width="300"/>
+[![Build Status](https://travis-ci.org/HeadhunterXamd/BasicUDPServer.svg?branch=master)](https://travis-ci.org/HeadhunterXamd/BasicUDPServer)<br/>   <a href="https://ci.appveyor.com/project/HeadhunterXamd/basicudpserver"><image src="https://ci.appveyor.com/api/projects/status/np05m6l0f60t8pcp?svg=true"  width="300"/></a>
 
 
 ##### The Issue tracker and scrum board is here:
