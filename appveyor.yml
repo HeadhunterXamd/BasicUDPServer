@@ -10,14 +10,3 @@ deploy:
   prerelease: true
   on:
     branch: deploy
-environment:
-   - secure: "GWsGBYLbi6CxEo82xe5kTCMMYb9VCb9MyMluXL3E+K4kQnE5Rnj1VNOZqJI6IqQPFDx0vU3hRH+csNZQ4zSrS56HAnu6SqBhbxeLJegUbn9C4bAN7EvWCfhP7gnFsFgDzeiwhD0o4VZzCFlbA5wzJrMvJLIZGgR11dJCULXQ31v2SWgcnTXPEmVt5TDxnG2zzfX+rNjq5ygp3dRLM10Z2TQVX+E+FUIU58QR6CZoEoYDSqIG6UND2gTSO7sY6oLg0I6DahX3AjZcg7QostlQeBC+9Cv9tFHBk/nEdPyzSdxVRuzdPA7n/gAzEwp57eKqj8prwX7JCjolkQ2vU3s1HqelW1BFgwTmjCojpcHCHi7TtgBunTP5kUd+uCOD78ZLE2DeFU3lao1C1+/dVHrmMufNXS7LcsBLvYUWQIWUfIoEAHETPNMdJqQGw3GDdptl+mH9oqJasq0m0FKxd4kzlxzm3b8rfsGBqnAnzbxGNeKMDFRqsMACyi2/cQd3HLqml97FopMnC3ER9ETW6J62TM9fScXM+QVj2Z1qjxeBKqnTbeajud5toifKUs33Ayi+fdpajkraj0Ww3qZXJrESW8jwGN/aenccx8pzFDgEv/+eHtQvLwczEy7N11IQWqz0D+SlMxUUEeq1fFBTGHfx+Ak4yMj5vEEqe97Kl2L1DdU="
-addons:
-  coverity_scan:
-    project:
-      name: "HeadhunterXamd/BasicUDPServer"
-      description: "Build submitted via Travis CI"
-    notification_email: nielsvanschooten@gmail.com
-    build_command_prepend: "msbuild /t:Clean"
-    build_command:   "msbuild /t:Rebuild"
-    branch_pattern: coverity_scan
