@@ -87,6 +87,7 @@
     <Compile Include="Network\Server.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\EventList.cs" />
     <Compile Include="Utilities\EventQueue.cs" />
     <Compile Include="Utilities\StringUtilities.cs" />
   </ItemGroup>

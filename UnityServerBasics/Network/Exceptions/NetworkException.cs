@@ -28,6 +28,20 @@ namespace UnityServerBasics.Network.Exceptions
 
 	class SerializeNetworkException : NetworkException
 	{
+		public SerializeNetworkException()
+		{
+		}
 
+		public SerializeNetworkException(string message) : base(message)
+		{
+		}
+
+		public SerializeNetworkException(string message, Exception innerException) : base(message, innerException)
+		{
+		}
+
+		protected SerializeNetworkException(SerializationInfo info, StreamingContext context) : base(info, context)
+		{
+		}
 	}
 }
