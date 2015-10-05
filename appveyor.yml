@@ -4,7 +4,7 @@ build:
   verbosity: minimal
 deploy:
 - provider: GitHub
-  tag: Server-v$(appveyor_build_version)
+  tag: UnityServer-v$(appveyor_build_version)
   auth_token:
     secure: jeZGvFiamRNtZnBpNaye4YMJhg8X/QRkzEuKNq2S7oGwQAc3Ss+nqgKqtw5wz8VJ
   prerelease: true
