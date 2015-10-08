@@ -12,12 +12,12 @@ namespace UnityServerBasics.Network
 	/// </summary>
 	class Server : IDisposable
 	{
-		private static Server m_cThis;
+		private static Server _mCThis;
 		private Thread _serverThread;
 		private readonly int _port;
 		private UdpClient _listener;
 		private IPEndPoint _endPoint;
-		public EventQueue<NetworkMessage> MessageBacklog { get; private set; }
+		public EventQueue<NetworkMessage> MessageBacklog { get; }
 
 		/// <summary>
 		/// a delegate function is like a blueprint, this shows the parameters the event gives when it fires.
@@ -36,30 +36,31 @@ namespace UnityServerBasics.Network
 		/// </summary>
 		public static Server Instance
 		{
-			get { return m_cThis; }
+			get { return _mCThis; }
 		}
 
 
 		/// <summary>
-		/// start a small server that listens to UDP messages through port 1337(as indicated when initializing the server instance).
+		/// start a small server that listens to UDP messages through _port 1337(as indicated when initializing the server instance).
 		/// </summary>
-		/// <param name="port"></param>
-		public Server(int port)
+		/// <param name="_port"></param>
+		/// <param name="_messageBacklog"></param>
+		public Server(int _port, EventQueue<NetworkMessage> _messageBacklog)
 		{
-			_port = port;
-			m_cThis = this;
+			this._port = _port;
+			MessageBacklog = _messageBacklog;
+			_mCThis = this;
 			Console.WriteLine("Setting up the server...");
 			MessageReceived += ParseMessage;
 		}
 
 		/// <summary>
-		/// here you start the server to listen to the specified port.
+		/// here you start the server to listen to the specified _port.
 		/// </summary>
 		/// <returns></returns>
 		public bool StartServer()
 		{
-			_serverThread = new Thread(Listener);
-			_serverThread.IsBackground = true;
+			_serverThread = new Thread(Listener) {IsBackground = true};
 			Console.WriteLine("Starting the listener...");
 			_serverThread.Start();
 			return true;
@@ -92,7 +93,7 @@ namespace UnityServerBasics.Network
 					// here you have received your message, you can do with it what you want.
 					// The message is an serialized Networkmessage, which is a wrapper for the content of the message.
 					// I launch the event that gives the messageData to the eventlisteners
-					MessageReceived(message);
+					MessageReceived?.Invoke(message);
 				}
 				catch (Exception e)
 				{
