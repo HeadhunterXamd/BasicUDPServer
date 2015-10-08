@@ -13,15 +13,15 @@ namespace UnityServerBasics.Network.Exceptions
 		{
 		}
 
-		public NetworkException(string message) : base(message)
+		public NetworkException(string _message) : base(_message)
 		{
 		}
 
-		public NetworkException(string message, Exception innerException) : base(message, innerException)
+		public NetworkException(string _message, Exception _innerException) : base(_message, _innerException)
 		{
 		}
 
-		protected NetworkException(SerializationInfo info, StreamingContext context) : base(info, context)
+		protected NetworkException(SerializationInfo _info, StreamingContext _context) : base(_info, _context)
 		{
 		}
 	}
@@ -32,15 +32,15 @@ namespace UnityServerBasics.Network.Exceptions
 		{
 		}
 
-		public SerializeNetworkException(string message) : base(message)
+		public SerializeNetworkException(string _message) : base(_message)
 		{
 		}
 
-		public SerializeNetworkException(string message, Exception innerException) : base(message, innerException)
+		public SerializeNetworkException(string _message, Exception _innerException) : base(_message, _innerException)
 		{
 		}
 
-		protected SerializeNetworkException(SerializationInfo info, StreamingContext context) : base(info, context)
+		protected SerializeNetworkException(SerializationInfo _info, StreamingContext _context) : base(_info, _context)
 		{
 		}
 	}

@@ -12,7 +12,6 @@ namespace UnityServerBasics.Network
 	/// </summary>
 	class Server : IDisposable
 	{
-		private static Server _mCThis;
 		private Thread _serverThread;
 		private readonly int _port;
 		private UdpClient _listener;
@@ -34,10 +33,7 @@ namespace UnityServerBasics.Network
 		/// <summary>
 		/// get the latest instance of the Server.
 		/// </summary>
-		public static Server Instance
-		{
-			get { return _mCThis; }
-		}
+		public static Server Instance { get; private set; }
 
 
 		/// <summary>
@@ -49,7 +45,7 @@ namespace UnityServerBasics.Network
 		{
 			this._port = _port;
 			MessageBacklog = _messageBacklog;
-			_mCThis = this;
+			Instance = this;
 			Console.WriteLine("Setting up the server...");
 			MessageReceived += ParseMessage;
 		}

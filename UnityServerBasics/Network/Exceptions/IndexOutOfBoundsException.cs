@@ -8,15 +8,16 @@ namespace UnityServerBasics.Network.Exceptions
 		public IndexOutOfBoundsException()
 		{
 		}
-		public IndexOutOfBoundsException(string message) : base(message)
+
+		public IndexOutOfBoundsException(string _message) : base(_message)
 		{
 		}
 
-		public IndexOutOfBoundsException(string message, Exception innerException) : base(message, innerException)
+		public IndexOutOfBoundsException(string _message, Exception _innerException) : base(_message, _innerException)
 		{
 		}
 
-		protected IndexOutOfBoundsException(SerializationInfo info, StreamingContext context) : base(info, context)
+		protected IndexOutOfBoundsException(SerializationInfo _info, StreamingContext _context) : base(_info, _context)
 		{
 		}
 	}
