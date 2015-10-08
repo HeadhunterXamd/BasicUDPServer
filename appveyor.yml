@@ -1,0 +1,12 @@
+version: 1.0.0.{build}
+skip_tags: true
+build:
+  verbosity: minimal
+deploy:
+- provider: GitHub
+  tag: UnityServer-v$(appveyor_build_version)
+  auth_token:
+    secure: jeZGvFiamRNtZnBpNaye4YMJhg8X/QRkzEuKNq2S7oGwQAc3Ss+nqgKqtw5wz8VJ
+  prerelease: true
+  on:
+    branch: deploy

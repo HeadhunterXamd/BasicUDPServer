@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityServerBasics.Utilities;
 
 namespace UnityServerBasics.game
 {
@@ -10,7 +11,7 @@ namespace UnityServerBasics.game
 
 		public int PlayerAmount { get; private set; }
 		public string Name { get; private set; }
-		private List<Player> Players;
+		private EventList<Player> Players;
 
 		/// <summary>
 		/// Create a hub which manages all the players in a game.
@@ -20,8 +21,9 @@ namespace UnityServerBasics.game
 		public Hub(int _playerAmount, string _name)
 		{
 			PlayerAmount = _playerAmount;
-			Players = new List<Player>();
+			Players = new EventList<Player>();
 			Name = _name;
+			Players.SubscribeToAdd(PlayerJoined);
 		}
 
 		/// <summary>
@@ -50,6 +52,17 @@ namespace UnityServerBasics.game
 				if (Players[i].GUID == _player.GUID)
 				{
 					Players.RemoveAt(i);
+				}
+			}
+		}
+
+		public void PlayerJoined(Player _player)
+		{
+			foreach(Player _p in Players)
+			{
+				if(_player.GUID != _p.GUID)
+				{
+
 				}
 			}
 		}

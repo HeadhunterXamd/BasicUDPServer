@@ -68,13 +68,15 @@ namespace UnityServerBasics.Network
 			{
 				MemoryStream memStream = new MemoryStream();
 				IFormatter formatter = new BinaryFormatter();
+				// write the serializable class to the memory stream.
 				formatter.Serialize(memStream, _message);
 				memStream.Position = 0;
+				// return the memory stream as a byte[]
 				return memStream.ToArray();
 			}
 			catch (Exception)
 			{
-				throw new Exceptions.SerializeNetworkException();
+				throw new Exceptions.SerializeNetworkException("The message could not be serialized");
 			}
 		}
 
@@ -94,7 +96,7 @@ namespace UnityServerBasics.Network
 			}
 			catch (Exception)
 			{
-				throw new Exceptions.SerializeNetworkException();
+				throw new Exceptions.SerializeNetworkException("The message could not be deserialized");
 			}
 		}
 	}

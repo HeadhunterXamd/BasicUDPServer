@@ -29,6 +29,5 @@ namespace UnityServerBasics.game
 			OnGround = _OnGround;
 		}
 
-
 	}
 }
