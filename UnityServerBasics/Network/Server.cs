@@ -16,7 +16,7 @@ namespace UnityServerBasics.Network
 		private readonly int _port;
 		private UdpClient _listener;
 		private IPEndPoint _endPoint;
-		public EventQueue<NetworkMessage> MessageBacklog { get; }
+		public EventQueue<NetworkMessage> MessageBacklog { get; private set; }
 
 		/// <summary>
 		/// a delegate function is like a blueprint, this shows the parameters the event gives when it fires.
