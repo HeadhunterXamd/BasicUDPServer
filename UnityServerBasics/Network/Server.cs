@@ -40,11 +40,10 @@ namespace UnityServerBasics.Network
 		/// start a small server that listens to UDP messages through _port 1337(as indicated when initializing the server instance).
 		/// </summary>
 		/// <param name="_port"></param>
-		/// <param name="_messageBacklog"></param>
-		public Server(int _port, EventQueue<NetworkMessage> _messageBacklog)
+		public Server(int _port)
 		{
 			this._port = _port;
-			MessageBacklog = _messageBacklog;
+			MessageBacklog = new EventQueue<NetworkMessage>();
 			Instance = this;
 			Console.WriteLine("Setting up the server...");
 			MessageReceived += ParseMessage;
