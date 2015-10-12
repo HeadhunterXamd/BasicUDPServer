@@ -89,7 +89,7 @@ namespace UnityServerBasics.Network
 					// here you have received your message, you can do with it what you want.
 					// The message is an serialized Networkmessage, which is a wrapper for the content of the message.
 					// I launch the event that gives the messageData to the eventlisteners
-					MessageReceived?.Invoke(message);
+					MessageReceived(message);
 				}
 				catch (Exception e)
 				{
