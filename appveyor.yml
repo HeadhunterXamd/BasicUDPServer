@@ -1,5 +1,5 @@
 version: 1.0.0.{build}
-skip_tags: false
+skip_tags: true
 build:
   verbosity: minimal
 deploy:
