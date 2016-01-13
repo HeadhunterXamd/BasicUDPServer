@@ -17,7 +17,7 @@ this is a basic UDP server, this can be used as a basic game server
 [![Documentation Status](https://readthedocs.org/projects/basicudpserver/badge/?version=latest)](http://basicudpserver.readthedocs.org/en/latest/?badge=latest)
   
 
-##### the Code coverage <--- This one is sthill in the works!!:
+##### the Code coverage <--- This one is still in the works!!:
 <a href="https://scan.coverity.com/projects/headhunterxamd-basicudpserver">
   <img alt="Coverity Scan Build Status"
        src="https://scan.coverity.com/projects/6393/badge.svg"/>
