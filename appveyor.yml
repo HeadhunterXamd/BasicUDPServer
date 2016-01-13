@@ -11,3 +11,4 @@ deploy:
   prerelease: true
   on:
     branch: deploy
+    skip_tags:true
