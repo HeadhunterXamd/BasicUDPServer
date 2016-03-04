@@ -121,7 +121,7 @@ namespace UnityServerBasics.Network
 			}
 			catch (Exception e)
 			{
-				throw new Exception("The string given is not encoded correctly or not complete.");
+				throw new Exception("The string given is not encoded correctly or not complete.", e);
 			}
 		}
 
