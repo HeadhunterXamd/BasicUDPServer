@@ -3,7 +3,7 @@ skip_tags: true
 build:
   verbosity: minimal
 artifacts:
-  - path: UnityServerBasics\bin\Debug\
+  - path: UnityServerBasics\bin\Debug\app.publish\*
     name: BasicServer
 deploy:
 - provider: GitHub
