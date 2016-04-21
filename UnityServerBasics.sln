@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+# Visual Studio Express 14 for Windows Desktop
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityServerBasics", "UnityServerBasics\UnityServerBasics.csproj", "{419F52DB-4CD3-483A-9396-9FF1881E97D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerTesting", "ServerTesting\ServerTesting.csproj", "{A8582E60-1152-46A8-B081-7F04C115ACB5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{419F52DB-4CD3-483A-9396-9FF1881E97D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{419F52DB-4CD3-483A-9396-9FF1881E97D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{419F52DB-4CD3-483A-9396-9FF1881E97D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8582E60-1152-46A8-B081-7F04C115ACB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8582E60-1152-46A8-B081-7F04C115ACB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8582E60-1152-46A8-B081-7F04C115ACB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8582E60-1152-46A8-B081-7F04C115ACB5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
