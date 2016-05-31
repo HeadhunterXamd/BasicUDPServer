@@ -3,3 +3,6 @@
 ################################################################################
 
 /.vs/UnityServerBasics/v14/.suo
+/UnityServerBasics/bin/Debug
+/UnityServerBasics/obj/Debug
+/UnityServerBasics/UnityServerBasics.csproj.user

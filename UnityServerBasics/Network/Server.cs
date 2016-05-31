@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
 using System.Threading;
 using UnityServerBasics.Utilities;
 
@@ -41,10 +42,13 @@ namespace UnityServerBasics.Network
 		/// </summary>
 		/// <param name="_port"></param>
 		/// <param name="_messageBacklog"></param>
-		public Server(int _port, EventQueue<NetworkMessage> _messageBacklog)
+		public Server(int _port, EventQueue<NetworkMessage> _messageBacklog = null)
 		{
 			this._port = _port;
-			MessageBacklog = _messageBacklog;
+            if (_messageBacklog != null)
+                MessageBacklog = _messageBacklog;
+            else
+                MessageBacklog = new EventQueue<NetworkMessage>();
 			Instance = this;
 			Console.WriteLine("Setting up the server...");
 			MessageReceived += ParseMessage;
@@ -107,7 +111,7 @@ namespace UnityServerBasics.Network
 		/// <param name="_lMessage"></param>
 		private void ParseMessage(byte[] _lMessage)
 		{
-			NetworkMessage message = NetworkMessage.Deserialize(_lMessage);
+			NetworkMessage message = NetworkMessage.Deserialize<NetworkMessage>(Encoding.UTF8.GetString(_lMessage));
 			MessageBacklog.Enqueue(message);
 		}
 
