@@ -16,10 +16,3 @@ this is a basic UDP server, this can be used as a basic game server
 ##### The Documentation:
 [![Documentation Status](https://readthedocs.org/projects/basicudpserver/badge/?version=latest)](http://basicudpserver.readthedocs.org/en/latest/?badge=latest)
   
-
-##### the Code coverage <--- This one is still in the works!!:
-[![Coverage Status](https://coveralls.io/repos/github/HeadhunterXamd/BasicUDPServer/badge.svg?branch=master)](https://coveralls.io/github/HeadhunterXamd/BasicUDPServer?branch=master)
-<a href="https://scan.coverity.com/projects/headhunterxamd-basicudpserver">
-  <img alt="Coverity Scan Build Status"
-       src="https://scan.coverity.com/projects/6393/badge.svg"/>
-</a>
