@@ -3,7 +3,7 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityServerBasics.game;
-
+using UnityServerBasics.Network.Serialization;
 
 /// <summary>
 /// Thi is a basic network message wrapper so the messaging can be better managed.

@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace UnityServerBasics.Utilities
 {
-	class StringUtilities
+    /// <summary>
+    /// This is a hub for string utlities, like random string generation and caseinsensitive comparison.
+    /// </summary>
+	public static class StringUtilities
 	{
 		/// <summary>
 		/// generate a random string
@@ -24,6 +27,16 @@ namespace UnityServerBasics.Utilities
 			return retStr;
 		}
 
+        /// <summary>
+        /// Compare the two strings, without checking the case.
+        /// </summary>
+        /// <param name="origin">The first string to compare</param>
+        /// <param name="other">The second screen to compare</param>
+        /// <returns>true if the string is the same.</returns>
+        public static bool CompareCaseInsensitive(string origin, string other)
+        {
+            return origin.ToLower() == other.ToLower();
+        }
 
 	}
 }

@@ -3,6 +3,8 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using UnityServerBasics.game;
+using UnityServerBasics.Network.Serialization;
 using UnityServerBasics.Utilities;
 
 namespace UnityServerBasics.Network
@@ -13,11 +15,13 @@ namespace UnityServerBasics.Network
 	/// </summary>
 	class Server : IDisposable
 	{
-		private Thread _serverThread;
-		private readonly int _port;
-		private UdpClient _listener;
-		private IPEndPoint _endPoint;
-		public EventQueue<NetworkMessage> MessageBacklog { get; }
+		#region Vars
+		private Thread _tServerThread;
+		private readonly int _iPort;
+		private UdpClient _cListener;
+		private IPEndPoint _cEndPoint;
+		public EventQueue<NetworkMessage> _lMessageBacklog { get; private set; }
+		public EventList<Hub> _lPlayerRooms { get; private set; }
 
 		/// <summary>
 		/// a delegate function is like a blueprint, this shows the parameters the event gives when it fires.
@@ -36,6 +40,7 @@ namespace UnityServerBasics.Network
 		/// </summary>
 		public static Server Instance { get; private set; }
 
+		#endregion
 
 		/// <summary>
 		/// start a small server that listens to UDP messages through _port 1337(as indicated when initializing the server instance).
@@ -49,6 +54,7 @@ namespace UnityServerBasics.Network
                 MessageBacklog = _messageBacklog;
             else
                 MessageBacklog = new EventQueue<NetworkMessage>();
+			_lPlayerRooms = new EventList<Hub>();
 			Instance = this;
 			Console.WriteLine("Setting up the server...");
 			MessageReceived += ParseMessage;
@@ -60,9 +66,9 @@ namespace UnityServerBasics.Network
 		/// <returns></returns>
 		public bool StartServer()
 		{
-			_serverThread = new Thread(Listener) {IsBackground = true};
+			_tServerThread = new Thread(Listener) {IsBackground = true};
 			Console.WriteLine("Starting the listener...");
-			_serverThread.Start();
+			_tServerThread.Start();
 			return true;
 		}
 
@@ -72,7 +78,7 @@ namespace UnityServerBasics.Network
 		/// <returns></returns>
 		public string Status()
 		{
-			var state = _serverThread.ThreadState;
+			var state = _tServerThread.ThreadState;
 			return state.ToString();
 		}
 
@@ -81,19 +87,19 @@ namespace UnityServerBasics.Network
 		/// </summary>
 		private void Listener()
 		{
-			_listener = new UdpClient(_port, AddressFamily.InterNetwork);
+			_cListener = new UdpClient(_iPort, AddressFamily.InterNetwork);
 
-			_endPoint = new IPEndPoint(IPAddress.Any, _port);
+			_cEndPoint = new IPEndPoint(IPAddress.Any, _iPort);
 
 			while (true)
 			{
 				try
 				{
-					byte[] message = _listener.Receive(ref _endPoint);
+					byte[] message = _cListener.Receive(ref _cEndPoint);
 					// here you have received your message, you can do with it what you want.
 					// The message is an serialized Networkmessage, which is a wrapper for the content of the message.
 					// I launch the event that gives the messageData to the eventlisteners
-					MessageReceived?.Invoke(message);
+					MessageReceived(message);
 				}
 				catch (Exception e)
 				{
@@ -107,12 +113,20 @@ namespace UnityServerBasics.Network
 
 		/// <summary>
 		/// The function called after a message came in.
+		/// The byte encoding should always be UTF32.
 		/// </summary>
 		/// <param name="_lMessage"></param>
 		private void ParseMessage(byte[] _lMessage)
 		{
-			NetworkMessage message = NetworkMessage.Deserialize<NetworkMessage>(Encoding.UTF8.GetString(_lMessage));
-			MessageBacklog.Enqueue(message);
+			try {
+				string data = Encoding.UTF32.GetString(_lMessage); 
+				NetworkMessage message = INetworkSerializer.Deserialize<NetworkMessage>(data);
+				_lMessageBacklog.Enqueue(message);
+			}
+			catch (Exception e)
+			{
+				throw new Exception("The string given is not encoded correctly or not complete.", e);
+			}
 		}
 
 		/// <summary>
@@ -138,9 +152,9 @@ namespace UnityServerBasics.Network
 		/// </summary>
 		public void Dispose()
 		{
-			_listener.Close();
-			_endPoint = null;
-			_serverThread.Abort();
+			_cListener.Close();
+			_cEndPoint = null;
+			_tServerThread.Abort();
 		}
 		#endregion
 	}

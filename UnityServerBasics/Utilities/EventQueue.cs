@@ -27,7 +27,7 @@ namespace UnityServerBasics.Utilities
 		/// <param name="_element"></param>
 		public new void Enqueue(T _element)
 		{
-			OnAdd?.Invoke(_element);
+			OnAdd(_element);
 			base.Enqueue(_element);
 		}
 
@@ -38,7 +38,7 @@ namespace UnityServerBasics.Utilities
 		public new T Dequeue()
 		{
 			T t = base.Dequeue();
-			OnRemoved?.Invoke(t);
+			OnRemoved(t);
 			return t;
 		}
 
