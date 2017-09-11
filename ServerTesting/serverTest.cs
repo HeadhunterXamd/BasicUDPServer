@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 using UnityServerBasics.Network;
 
 namespace ServerTesting
@@ -15,10 +16,11 @@ namespace ServerTesting
         }
 
         [TestCase]
-        public void test1()
+        public void StartServerTest()
         {
             Assert.AreEqual(_server.StartServer(), true);
             Assert.AreEqual(_server.Status(), "Background");
+            Console.WriteLine("Server is running...");
         }
 
         [TearDown]
