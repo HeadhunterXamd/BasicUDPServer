@@ -11,7 +11,7 @@ namespace UnityServerBasics.Network.Serialization
 	/// Do implement the attributes for the serialization.
 	/// </summary>
 	[Serializable]
-	class INetworkSerializer
+	public class INetworkSerializer
 	{
 
 		/// <summary>

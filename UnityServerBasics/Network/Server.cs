@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
 using System.Threading;
+using System.Windows.Forms;
+using UnityServerBasics.game;
+using UnityServerBasics.Network.Serialization;
 using UnityServerBasics.Utilities;
 
 namespace UnityServerBasics.Network
@@ -10,14 +14,16 @@ namespace UnityServerBasics.Network
 	/// <summary>
 	/// this is a basic server class.
 	/// </summary>
-	class Server : IDisposable
+	public class Server : IDisposable
 	{
-		private static Server m_cThis;
-		private Thread _serverThread;
-		private readonly int _port;
-		private UdpClient _listener;
-		private IPEndPoint _endPoint;
-		public EventQueue<NetworkMessage> MessageBacklog { get; private set; }
+		#region Vars
+		private Thread _tServerThread;
+		private readonly int _iPort;
+		private UdpClient _cListener;
+		private IPEndPoint _cEndPoint;
+		public EventQueue<NetworkMessage> _lMessageBacklog { get; private set; }
+		public EventList<Hub> _lPlayerRooms { get; private set; }
+		private bool _bEnableListener;
 
 		/// <summary>
 		/// a delegate function is like a blueprint, this shows the parameters the event gives when it fires.
@@ -34,34 +40,35 @@ namespace UnityServerBasics.Network
 		/// <summary>
 		/// get the latest instance of the Server.
 		/// </summary>
-		public static Server Instance
-		{
-			get { return m_cThis; }
-		}
+		public static Server Instance { get; private set; }
 
+		#endregion
 
 		/// <summary>
-		/// start a small server that listens to UDP messages through port 1337(as indicated when initializing the server instance).
+		/// start a small server that listens to UDP messages through _port 1337(as indicated when initializing the server instance).
 		/// </summary>
-		/// <param name="port"></param>
-		public Server(int port)
+		/// <param name="_port"></param>
+		/// <param name="messageBacklog"></param>
+		public Server(int _port, EventQueue<NetworkMessage> messageBacklog = null)
 		{
-			_port = port;
-			m_cThis = this;
+			_iPort = _port;
+            _lMessageBacklog = messageBacklog ?? new EventQueue<NetworkMessage>();
+			_lPlayerRooms = new EventList<Hub>();
+			Instance = this;
 			Console.WriteLine("Setting up the server...");
 			MessageReceived += ParseMessage;
 		}
 
 		/// <summary>
-		/// here you start the server to listen to the specified port.
+		/// here you start the server to listen to the specified _port.
 		/// </summary>
 		/// <returns></returns>
 		public bool StartServer()
 		{
-			_serverThread = new Thread(Listener);
-			_serverThread.IsBackground = true;
+			_tServerThread = new Thread(Listener) {IsBackground = true};
 			Console.WriteLine("Starting the listener...");
-			_serverThread.Start();
+			_bEnableListener = true;
+			_tServerThread.Start();
 			return true;
 		}
 
@@ -71,7 +78,7 @@ namespace UnityServerBasics.Network
 		/// <returns></returns>
 		public string Status()
 		{
-			var state = _serverThread.ThreadState;
+			var state = _tServerThread.ThreadState;
 			return state.ToString();
 		}
 
@@ -80,15 +87,15 @@ namespace UnityServerBasics.Network
 		/// </summary>
 		private void Listener()
 		{
-			_listener = new UdpClient(_port, AddressFamily.InterNetwork);
+			_cListener = new UdpClient(_iPort, AddressFamily.InterNetwork);
 
-			_endPoint = new IPEndPoint(IPAddress.Any, _port);
+			_cEndPoint = new IPEndPoint(IPAddress.Any, _iPort);
 
-			while (true)
+			while (_bEnableListener)
 			{
 				try
 				{
-					byte[] message = _listener.Receive(ref _endPoint);
+					byte[] message = _cListener.Receive(ref _cEndPoint);
 					// here you have received your message, you can do with it what you want.
 					// The message is an serialized Networkmessage, which is a wrapper for the content of the message.
 					// I launch the event that gives the messageData to the eventlisteners
@@ -106,12 +113,20 @@ namespace UnityServerBasics.Network
 
 		/// <summary>
 		/// The function called after a message came in.
+		/// The byte encoding should always be UTF32.
 		/// </summary>
 		/// <param name="_lMessage"></param>
 		private void ParseMessage(byte[] _lMessage)
 		{
-			NetworkMessage message = NetworkMessage.Deserialize(_lMessage);
-			MessageBacklog.Enqueue(message);
+			try {
+				string data = Encoding.UTF32.GetString(_lMessage); 
+				NetworkMessage message = INetworkSerializer.Deserialize<NetworkMessage>(data);
+				_lMessageBacklog.Enqueue(message);
+			}
+			catch (Exception e)
+			{
+				throw new Exception("The string given is not encoded correctly or not complete.", e);
+			}
 		}
 
 		/// <summary>
@@ -137,9 +152,12 @@ namespace UnityServerBasics.Network
 		/// </summary>
 		public void Dispose()
 		{
-			_listener.Close();
-			_endPoint = null;
-			_serverThread.Abort();
+			Console.WriteLine("Disabling the listener...");
+			_cListener?.Close();
+			_cEndPoint = null;
+			_bEnableListener = false;
+			Console.WriteLine("Shutting down...");
+			_tServerThread?.Abort();
 		}
 		#endregion
 	}

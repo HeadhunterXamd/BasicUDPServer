@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace UnityServerBasics.Utilities
 {
-	class EventQueue<T> : Queue<T>
+	public class EventQueue<T> : Queue<T>
 	{
-		private delegate void Added(T element);
+		private delegate void Added(T _element);
 
 		private event Added OnAdd;
 		
-		private delegate void Removed(T element);
+		private delegate void Removed(T _element);
 
 		private event Removed OnRemoved;
 
@@ -24,11 +24,11 @@ namespace UnityServerBasics.Utilities
 		/// <summary>
 		/// Add new <see cref="T"/> to the queue.
 		/// </summary>
-		/// <param name="element"></param>
-		public new void Enqueue(T element)
+		/// <param name="_element"></param>
+		public new void Enqueue(T _element)
 		{
-			OnAdd(element);
-			base.Enqueue(element);
+			OnAdd(_element);
+			base.Enqueue(_element);
 		}
 
 		/// <summary>

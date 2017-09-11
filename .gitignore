@@ -1,0 +1,8 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/UnityServerBasics/v14/.suo
+/ServerTesting/obj/Debug
+/UnityServerBasics/bin/Debug
+/UnityServerBasics/obj/Debug

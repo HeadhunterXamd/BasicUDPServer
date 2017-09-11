@@ -1,10 +1,10 @@
 version: 1.0.0.{build}
 skip_tags: true
+
+before_build:
+  - nuget restore
 build:
   verbosity: minimal
-artifacts:
-  - path: UnityServerBasics\bin\Debug\app.publish\*
-    name: BasicServer
 deploy:
 - provider: GitHub
   tag: Server-v$(appveyor_build_version)

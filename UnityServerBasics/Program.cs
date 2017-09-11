@@ -14,18 +14,12 @@ namespace UnityServerBasics
 			Printer _printer = new Printer();
 			while (true)
 			{
-				if (once == false)
-				{
-					bool startServer = _server.StartServer();
-					Console.WriteLine("starting the server");
-					once = true;
-
-				}
-				{
-					//Console.WriteLine(_server.Status());
-				}
-
-
+                if (once == false)
+                {
+                    bool startServer = _server.StartServer();
+                    Console.WriteLine("starting the server");
+                    once = true;
+                }
 			}
 		}
 	}
