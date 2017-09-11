@@ -3,6 +3,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using System.Windows.Forms;
 using UnityServerBasics.game;
 using UnityServerBasics.Network.Serialization;
 using UnityServerBasics.Utilities;
@@ -13,7 +14,7 @@ namespace UnityServerBasics.Network
 	/// <summary>
 	/// this is a basic server class.
 	/// </summary>
-	class Server : IDisposable
+	public class Server : IDisposable
 	{
 		#region Vars
 		private Thread _tServerThread;
@@ -22,6 +23,7 @@ namespace UnityServerBasics.Network
 		private IPEndPoint _cEndPoint;
 		public EventQueue<NetworkMessage> _lMessageBacklog { get; private set; }
 		public EventList<Hub> _lPlayerRooms { get; private set; }
+		private bool _bEnableListener;
 
 		/// <summary>
 		/// a delegate function is like a blueprint, this shows the parameters the event gives when it fires.
@@ -46,14 +48,11 @@ namespace UnityServerBasics.Network
 		/// start a small server that listens to UDP messages through _port 1337(as indicated when initializing the server instance).
 		/// </summary>
 		/// <param name="_port"></param>
-		/// <param name="_messageBacklog"></param>
-		public Server(int _port, EventQueue<NetworkMessage> _messageBacklog = null)
+		/// <param name="messageBacklog"></param>
+		public Server(int _port, EventQueue<NetworkMessage> messageBacklog = null)
 		{
-			this._port = _port;
-            if (_messageBacklog != null)
-                MessageBacklog = _messageBacklog;
-            else
-                MessageBacklog = new EventQueue<NetworkMessage>();
+			_iPort = _port;
+            _lMessageBacklog = messageBacklog ?? new EventQueue<NetworkMessage>();
 			_lPlayerRooms = new EventList<Hub>();
 			Instance = this;
 			Console.WriteLine("Setting up the server...");
@@ -68,6 +67,7 @@ namespace UnityServerBasics.Network
 		{
 			_tServerThread = new Thread(Listener) {IsBackground = true};
 			Console.WriteLine("Starting the listener...");
+			_bEnableListener = true;
 			_tServerThread.Start();
 			return true;
 		}
@@ -91,7 +91,7 @@ namespace UnityServerBasics.Network
 
 			_cEndPoint = new IPEndPoint(IPAddress.Any, _iPort);
 
-			while (true)
+			while (_bEnableListener)
 			{
 				try
 				{
@@ -152,9 +152,12 @@ namespace UnityServerBasics.Network
 		/// </summary>
 		public void Dispose()
 		{
-			_cListener.Close();
+			Console.WriteLine("Disabling the listener...");
+			_cListener?.Close();
 			_cEndPoint = null;
-			_tServerThread.Abort();
+			_bEnableListener = false;
+			Console.WriteLine("Shutting down...");
+			_tServerThread?.Abort();
 		}
 		#endregion
 	}

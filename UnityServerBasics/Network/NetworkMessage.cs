@@ -11,7 +11,7 @@ using UnityServerBasics.Network.Serialization;
 namespace UnityServerBasics.Network
 {
 	[Serializable]
-	class NetworkMessage : Serialization.INetworkSerializer
+	public class NetworkMessage : Serialization.INetworkSerializer
 	{
 		/// <summary>
 		/// unique identifier for the networking system.

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UnityServerBasics.Utilities
 {
-	class EventQueue<T> : Queue<T>
+	public class EventQueue<T> : Queue<T>
 	{
 		private delegate void Added(T _element);
 

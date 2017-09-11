@@ -6,7 +6,7 @@ namespace UnityServerBasics.game
 	/// <summary>
 	/// This is a "game room".
 	/// </summary>
-	class Hub
+	public class Hub
 	{
 
 		public int PlayerAmount { get; private set; }

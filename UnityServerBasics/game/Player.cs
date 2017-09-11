@@ -5,7 +5,7 @@ namespace UnityServerBasics.game
 	/// <summary>
 	/// A player wrapper so the server can track the state of the player.
 	/// </summary>
-	class Player
+	public class Player
 	{
 		public Guid GUID { get; set; }
 		public Vector Position { get; set; }
