@@ -119,7 +119,8 @@ namespace UnityServerBasics.Network
 		{
 			try {
 				string data = Encoding.UTF32.GetString(_lMessage); 
-				NetworkMessage message = INetworkSerializer.Deserialize<NetworkMessage>(data);
+                XMLSerializer ser = new XMLSerializer();
+				NetworkMessage message = ser.Deserialize(Convert.FromBase64String(data));
 				_lMessageBacklog.Enqueue(message);
 			}
 			catch (Exception e)
