@@ -9,6 +9,13 @@ using UnityServerBasics.Utilities;
 
 namespace UnityServerBasics.Network
 {
+    public enum SerializerType : byte
+    {
+        XML = 0xa,
+        JSON = 0xb,
+        BINARY = 0xc
+    }
+
 
 	/// <summary>
 	/// this is a basic server class.
@@ -22,13 +29,20 @@ namespace UnityServerBasics.Network
 		private IPEndPoint _cEndPoint;
 		public EventQueue<NetworkMessage> _lMessageBacklog { get; private set; }
 		public EventList<Hub> _lPlayerRooms { get; private set; }
+        private SerializerType _eSerializerType;
+        private Serializer _cSerializer;
 		private bool _bEnableListener;
 
 		/// <summary>
 		/// a delegate function is like a blueprint, this shows the parameters the event gives when it fires.
 		/// </summary>
 		/// <param name="_lMessage"></param>
-		public delegate void OnMessageReceived(byte[] _lMessage);
+		public delegate void OnMessageReceived(NetworkMessage _lMessage);
+
+
+        private delegate void _messageArrived(byte[] data);
+
+        private event _messageArrived messageArrived;
 
 
 		/// <summary>
@@ -48,14 +62,16 @@ namespace UnityServerBasics.Network
 		/// </summary>
 		/// <param name="_port"></param>
 		/// <param name="messageBacklog"></param>
-		public Server(int _port, EventQueue<NetworkMessage> messageBacklog = null)
+		public Server(int _port, EventQueue<NetworkMessage> messageBacklog = null, SerializerType serializer = SerializerType.XML)
 		{
 			_iPort = _port;
             _lMessageBacklog = messageBacklog ?? new EventQueue<NetworkMessage>();
 			_lPlayerRooms = new EventList<Hub>();
 			Instance = this;
 			Console.WriteLine("Setting up the server...");
-			MessageReceived += ParseMessage;
+			messageArrived += ParseMessage;
+            _eSerializerType = serializer;
+            CreateSerializer(serializer);
 		}
 
 		/// <summary>
@@ -98,7 +114,7 @@ namespace UnityServerBasics.Network
 					// here you have received your message, you can do with it what you want.
 					// The message is an serialized Networkmessage, which is a wrapper for the content of the message.
 					// I launch the event that gives the messageData to the eventlisteners
-					MessageReceived(message);
+					messageArrived(message);
 				}
 				catch (Exception e)
 				{
@@ -108,20 +124,58 @@ namespace UnityServerBasics.Network
 			}
 		}
 
+        public void SendMessage(NetworkMessage message, IPAddress target)
+        {
+            UdpClient sender = new UdpClient(_iPort + 1, AddressFamily.InterNetwork);
+            IPEndPoint endPoint = new IPEndPoint(target, _iPort+ 1);
+
+            byte[] mess = _cSerializer.Serialize(message);
+            byte[] newmess = new byte[mess.Length + 1];
+            // first byte is the indicator which kind of serialization we use.
+            newmess[0] = (byte)_eSerializerType;
+            // the new format will be [serializertype, message]
+            for (int i = 1; i < newmess.Length; i++)
+            {
+                newmess[i] = mess[i - 1];
+            }
+            sender.Send(newmess, newmess.Length - 1, endPoint);
+        }
+
+
+        private void CreateSerializer(SerializerType serializer)
+        {
+            switch (serializer)
+            {
+                case SerializerType.JSON:
+                case SerializerType.XML:
+                    _cSerializer = new Serializer(typeof(XMLSerializer));
+                    break;
+                case SerializerType.BINARY:
+                    _cSerializer = new Serializer(typeof(BinarySerializer));
+                    break;
+            }
+        }
+
 		#region EventManagment
 
 		/// <summary>
 		/// The function called after a message came in.
-		/// The byte encoding should always be UTF32.
+		/// the format of the bytes is always, first byte the encoding type.
+        /// the bytes after that are the message.
 		/// </summary>
 		/// <param name="_lMessage"></param>
 		private void ParseMessage(byte[] _lMessage)
 		{
 			try {
-				string data = Encoding.UTF32.GetString(_lMessage); 
-                XMLSerializer ser = new XMLSerializer();
-				NetworkMessage message = ser.Deserialize(Convert.FromBase64String(data));
+                byte[] mess = new byte[_lMessage.Length - 1];
+                for (int i = 0; i < mess.Length; i++)
+                {
+                    mess[i] = _lMessage[i + 1];
+                }
+
+				NetworkMessage message = _cSerializer.Deserialize(mess);
 				_lMessageBacklog.Enqueue(message);
+                MessageReceived?.Invoke(_lMessageBacklog.Dequeue());
 			}
 			catch (Exception e)
 			{

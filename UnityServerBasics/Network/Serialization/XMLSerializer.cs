@@ -19,7 +19,7 @@ namespace UnityServerBasics.Network.Serialization
         /// </summary>
         /// <param name="toSerialize">The object to serialize</param>
         /// <returns>A string of xml data.</returns>
-        public byte[] Serialize(INetworkSerializer toSerialize)
+        public byte[] Serialize(NetworkMessage toSerialize)
 		{
 			try
 			{

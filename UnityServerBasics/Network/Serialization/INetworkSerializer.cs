@@ -2,7 +2,7 @@
 {
     public interface INetworkSerializer
     {
-        byte[] Serialize(INetworkSerializer serializer);
+        byte[] Serialize(NetworkMessage serializer);
 
         NetworkMessage Deserialize(byte[] data);
     }

@@ -7,7 +7,7 @@ namespace UnityServerBasics.Network.Serialization
 {
     public class BinarySerializer : INetworkSerializer
     {
-        public byte[] Serialize(INetworkSerializer serializer)
+        public byte[] Serialize(NetworkMessage serializer)
         {
             try
             {
