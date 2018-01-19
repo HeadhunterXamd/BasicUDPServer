@@ -6,5 +6,6 @@
 /ServerTesting/obj/Debug
 /UnityServerBasics/bin/Debug
 /UnityServerBasics/obj/Debug
-/.vs/UnityServerBasics/v15
-/UnityServerBasics
+/.vs
+/UnityServerBasics/obj/Release
+/ServerTesting/obj/Release

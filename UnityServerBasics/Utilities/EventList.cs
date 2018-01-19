@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UnityServerBasics.Utilities
 {
-	class EventList<T> : List<T>
+	public class EventList<T> : List<T>
 	{
 
 		#region Events and delegates

@@ -57,7 +57,7 @@
     <ManifestKeyFile>UnityServerBasics_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <GenerateManifests>true</GenerateManifests>
+    <GenerateManifests>false</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
     <TargetZone>LocalIntranet</TargetZone>
@@ -83,7 +83,9 @@
     <Compile Include="Network\Exceptions\NetworkException.cs" />
     <Compile Include="Network\NetworkMessage.cs" />
     <Compile Include="Network\Printer.cs" />
+    <Compile Include="Network\Serialization\BinarySerializer.cs" />
     <Compile Include="Network\Serialization\INetworkSerializer.cs" />
+    <Compile Include="Network\Serialization\XMLSerializer.cs" />
     <Compile Include="Network\Server.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -93,7 +95,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">

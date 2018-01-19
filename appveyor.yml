@@ -1,5 +1,8 @@
 version: 1.0.0.{build}
 skip_tags: true
+
+before_build:
+  - nuget restore
 build:
   verbosity: minimal
 deploy:
@@ -8,7 +11,7 @@ deploy:
   release: Server-v$(appveyor_build_version)
   auth_token:
     secure: jeZGvFiamRNtZnBpNaye4YMJhg8X/QRkzEuKNq2S7oGwQAc3Ss+nqgKqtw5wz8VJ
+  artifact: BasicServer
   prerelease: true
   on:
     branch: deploy
-    skip_tags: true

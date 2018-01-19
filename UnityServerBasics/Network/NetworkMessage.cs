@@ -1,9 +1,5 @@
 ﻿using System;
-using System.IO;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
 using UnityServerBasics.game;
-using UnityServerBasics.Network.Serialization;
 
 /// <summary>
 /// Thi is a basic network message wrapper so the messaging can be better managed.
@@ -11,7 +7,7 @@ using UnityServerBasics.Network.Serialization;
 namespace UnityServerBasics.Network
 {
 	[Serializable]
-	class NetworkMessage : Serialization.INetworkSerializer
+	public class NetworkMessage 
 	{
 		/// <summary>
 		/// unique identifier for the networking system.
@@ -57,47 +53,6 @@ namespace UnityServerBasics.Network
 			Sender = _cPlayer;
 		}
 
-		///// <summary>
-		///// Serialize the <see cref="NetworkMessage"/> in to bytes.
-		///// </summary>
-		///// <param name="_message">The message to serialize.</param>
-		///// <returns>A <see cref="byte[]"/></returns>
-		//public static byte[] Serialize(NetworkMessage _message)
-		//{
-		//	try
-		//	{
-		//		MemoryStream memStream = new MemoryStream();
-		//		IFormatter formatter = new BinaryFormatter();
-		//		// write the serializable class to the memory stream.
-		//		formatter.Serialize(memStream, _message);
-		//		memStream.Position = 0;
-		//		// return the memory stream as a byte[]
-		//		return memStream.ToArray();
-		//	}
-		//	catch (Exception)
-		//	{
-		//		throw new Exceptions.SerializeNetworkException("The message could not be serialized");
-		//	}
-		//}
-
-		///// <summary>
-		///// 
-		///// </summary>
-		///// <param name="_message"></param>
-		///// <returns></returns>
-		//public static NetworkMessage Deserialize(byte[] _message)
-		//{
-		//	try
-		//	{
-		//		MemoryStream memStream = new MemoryStream();
-		//		memStream.Write(_message, 0, _message.Length);
-		//		IFormatter formatter = new BinaryFormatter();
-		//		return (NetworkMessage)formatter.Deserialize(memStream);
-		//	}
-		//	catch (Exception)
-		//	{
-		//		throw new Exceptions.SerializeNetworkException("The message could not be deserialized");
-		//	}
-		//}
+		
 	}
 }

@@ -10,7 +10,7 @@ namespace UnityServerBasics.game
 	/// A basic Vector object.
 	/// </summary>
 	[Serializable]
-	class Vector : INetworkSerializer
+	public class Vector
 	{
 		/// <summary>
 		/// The x value of this vector.
