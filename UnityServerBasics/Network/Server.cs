@@ -173,7 +173,7 @@ namespace UnityServerBasics.Network
                     mess[i] = _lMessage[i + 1];
                 }
 
-				NetworkMessage message = _cSerializer.Deserialize(mess);
+				NetworkMessage message = _cSerializer.Deserialize(mess) as NetworkMessage;
 				_lMessageBacklog.Enqueue(message);
                 MessageReceived?.Invoke(_lMessageBacklog.Dequeue());
 			}

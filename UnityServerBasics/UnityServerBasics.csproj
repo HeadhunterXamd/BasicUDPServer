@@ -84,7 +84,7 @@
     <Compile Include="Network\NetworkMessage.cs" />
     <Compile Include="Network\Printer.cs" />
     <Compile Include="Network\Serialization\BinarySerializer.cs" />
-    <Compile Include="Network\Serialization\INetworkSerializer.cs" />
+    <Compile Include="Network\Serialization\ISerializer.cs" />
     <Compile Include="Network\Serialization\Serializer.cs" />
     <Compile Include="Network\Serialization\XMLSerializer.cs" />
     <Compile Include="Network\Server.cs" />

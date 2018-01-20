@@ -5,9 +5,9 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace UnityServerBasics.Network.Serialization
 {
-    public class BinarySerializer : INetworkSerializer
+    public class BinarySerializer : ISerializer
     {
-        public byte[] Serialize(NetworkMessage serializer)
+        public byte[] Serialize(object serializer)
         {
             try
             {
@@ -25,7 +25,7 @@ namespace UnityServerBasics.Network.Serialization
             }
         }
 
-        public NetworkMessage Deserialize(byte[] xmlData)
+        public object Deserialize(byte[] xmlData)
         {
             try
             {

@@ -12,14 +12,14 @@ namespace UnityServerBasics.Network.Serialization
 	/// </summary>
 	[Serializable]
 	// ReSharper disable once InconsistentNaming
-	public class XMLSerializer : INetworkSerializer
+	public class XMLSerializer : ISerializer
 	{
         /// <summary>
         /// Serialize the object that implements the <see cref="XMLSerializer"/> interface.
         /// </summary>
         /// <param name="toSerialize">The object to serialize</param>
         /// <returns>A string of xml data.</returns>
-        public byte[] Serialize(NetworkMessage toSerialize)
+        public byte[] Serialize(object toSerialize)
 		{
 			try
 			{
@@ -43,7 +43,7 @@ namespace UnityServerBasics.Network.Serialization
 		/// <typeparam name="T">The type of object to deserialzie to.</typeparam>
 		/// <param name="xmlData">the Xml string to deserialize</param>
 		/// <returns>The <see cref="T"/> object</returns>
-		public NetworkMessage Deserialize(byte[] xmlData)
+		public object Deserialize(byte[] xmlData)
 		{
 			try
 			{
