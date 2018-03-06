@@ -160,7 +160,7 @@ namespace UnityServerBasics.Network
 
 		/// <summary>
 		/// The function called after a message came in.
-		/// the format of the bytes is always, first byte the encoding type.
+		/// the format of the bytes is always, first byte the encoding type/the serializer used to encode the message.
         /// the bytes after that are the message.
 		/// </summary>
 		/// <param name="_lMessage"></param>
@@ -168,10 +168,11 @@ namespace UnityServerBasics.Network
 		{
 			try {
                 byte[] mess = new byte[_lMessage.Length - 1];
-                for (int i = 0; i < mess.Length; i++)
+                for (int i = 1; i < mess.Length; i++)
                 {
-                    mess[i] = _lMessage[i + 1];
+                    mess[i] = _lMessage[i];
                 }
+				CreateSerializer((SerializerType)_lMessage[0]);
 
 				NetworkMessage message = _cSerializer.Deserialize(mess) as NetworkMessage;
 				_lMessageBacklog.Enqueue(message);
